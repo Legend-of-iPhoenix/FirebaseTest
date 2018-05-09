@@ -102,6 +102,10 @@
 			<button id="downloadButton" onclick="downloadFile('fileDownloader', 'files', 'downloadLink');">Download</button>
 			<a id="downloadLink" href="" style="display: none;" download>Download here</a>
 		</form>
+		<div>
+			<ul id="allFiles" style="list-style-type: none;"></ul>
+			<button onclick="putAllFiles('allFiles', 'files');">Load Files</button>
+		</div>
 	</div>
   </body>
 </html>

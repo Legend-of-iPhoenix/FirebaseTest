@@ -1,8 +1,10 @@
-function writeFileData(f_path, f_name)
+var _tempData;
+function writeFileData(f_nodeName, f_path, f_name, f_uid)
 {
-	firebase.database().ref('files/' + f_name).set({
+	firebase.database().ref('files/' + f_nodeName).set({
     name: f_name,
-    path: f_path
+    path: f_path,
+	uid: f_uid
   });
   console.log("Written.");
 }
@@ -16,5 +18,5 @@ function readFileDataEventually(f_name, child)
 
 function readFileDataNow(f_name, child)
 {
-//figure out how to do this
+	//figure this out
 }

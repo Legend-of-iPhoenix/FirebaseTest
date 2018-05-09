@@ -40,7 +40,7 @@ function uploadFile(uploader_id, folder) {
 	  // Upload completed successfully, now we can get the download URL
 	  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 		console.log('File available at', downloadURL);
-		writeFileData(downloadURL, file.name.substring(0, file.name.lastIndexOf('.')));
+		writeFileData(file.name.substring(0, file.name.lastIndexOf('.')), downloadURL, file.name, curUser.uid);
 	  });
 	});
 }
@@ -55,8 +55,8 @@ function downloadFile(downloader_id, folder, link_id) {
 	var name = document.getElementById(downloader_id).value;
 	name = name.substring(0, name.lastIndexOf('.'));
 	//document.getElementById(link_id).value = readFileData(name.substring(0, name.lastIndexOf('.')));
-	readFileDataEventually(name, "path").then(function(data){
-			console.log(data);
+	readFileDataEventually(name, "name").then(function(data){
+			document.getElementById(link_id).innerHTML = "Download " + data + " here";
 	});
 	/*
 	//Direct dl
@@ -67,5 +67,17 @@ function downloadFile(downloader_id, folder, link_id) {
 	};
 	xhr.open('GET', url);
 	xhr.send();*/
+	});
+}
+
+function putAllFiles(list_id, folder) {
+	//var allFiles = firebase.database().ref(folder + "/").orderByChild("name");
+	//allFiles.forEach(function(snapshot) {});
+	document.getElementById(list_id).innerHTML = "";
+	firebase.database().ref(folder).once('value').then(function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+    		document.getElementById(list_id).innerHTML += "<li>" + childSnapshot.child("name").val() + ": <a href=\"" + childSnapshot.child("path").val() + "\">Download</a></li>";
+    		// ...
+  		});
 	});
 }
