@@ -40,17 +40,24 @@ function uploadFile(uploader_id, folder) {
 	  // Upload completed successfully, now we can get the download URL
 	  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 		console.log('File available at', downloadURL);
+		writeFileData(downloadURL, file.name.substring(0, file.name.lastIndexOf('.')));
 	  });
 	});
 }
 
 function downloadFile(downloader_id, folder, link_id) {
 	var filepath = folder + "/" + document.getElementById(downloader_id).value;
-	console.log(filepath);
+	//console.log(filepath);
 	storageRef.child(filepath).getDownloadURL().then(function(url) {
 	// `url` is the download URL for filepath
 	document.getElementById(link_id).setAttribute("href", url);
 	document.getElementById(link_id).setAttribute("style", "display: block;");
+	var name = document.getElementById(downloader_id).value;
+	name = name.substring(0, name.lastIndexOf('.'));
+	//document.getElementById(link_id).value = readFileData(name.substring(0, name.lastIndexOf('.')));
+	readFileDataEventually(name, "path").then(function(data){
+			console.log(data);
+	});
 	/*
 	//Direct dl
 	var xhr = new XMLHttpRequest();

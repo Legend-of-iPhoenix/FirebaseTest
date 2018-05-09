@@ -1,20 +1,23 @@
 var signedIn;
 var curUser;
 
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user) {
-	curUser = user;
-    signedIn = true;
-	console.log("User is logged in");
-    // User is signed in.
-  } else {
-    signedIn = false;
-	curUser = null;
-    console.log("User is not logged in");
-	// No user is signed in.
-  }
-  setButtons(signedIn);
-});
+function updateUser(user)
+{
+	if (user) {
+  	curUser = user;
+      signedIn = true;
+  	console.log("User is logged in");
+      // User is signed in.
+    } else {
+      signedIn = false;
+  	curUser = null;
+      console.log("User is not logged in");
+  	// No user is signed in.
+    }
+    setButtons(signedIn);
+}
+
+firebase.auth().onAuthStateChanged(updateUser);
 
 function gLogin() {
   firebase.auth().signInWithPopup(gProvider).then(function (result) {
@@ -24,6 +27,7 @@ function gLogin() {
     var user = result.user;
     // ...
 	signedIn = true;
+	updateUser(firebase.auth().currentUser);
 	//setButtons(signedIn);
   }).catch(function (error) {
     // Handle Errors here.
@@ -40,6 +44,7 @@ function gLogin() {
 function gLogout() {
   firebase.auth().signOut().then(function () {
     signedIn = false;
+	updateUser(firebase.auth().currentUser);
 	//setButtons(signedIn);
   }).catch(function (error) {
     // An error happened.
@@ -54,7 +59,7 @@ function setButtons(loggedIn) {
     document.getElementById("signoutButton").innerHTML = "Logout, " + curUser.displayName;
 	stylesheet.deleteRule(0);
 	stylesheet.insertRule(".signedin { display: block; }", 0);
-	
+
   } else {
     document.getElementById("signin").setAttribute("style", "display: block;");
     document.getElementById("signout").setAttribute("style", "display: none;");

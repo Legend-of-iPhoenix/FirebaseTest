@@ -14,13 +14,13 @@
     <script defer src="/__/firebase/5.0.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-	
+
 	<script>
     // I may as well initialize it here, it's so short and insiginificant it doesn't need its own file.
     var config = {
       apiKey: "AIzaSyBvOJPa_v2t5TKV_AxBTEyGkOVyXtnZNE4",
       authDomain: "testprojecta-8f0a1.firebaseapp.com",
-      databaseURL: "https://testprojecta-8f0a1.firebaseio.com",
+      databaseURL: "https://testprojecta-8f0a1.firebaseio.com/",
       projectId: "testprojecta-8f0a1",
       storageBucket: "testprojecta-8f0a1.appspot.com",
       messagingSenderId: "914780740361"
@@ -29,10 +29,12 @@
     var gProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().useDeviceLanguage();
 	var storageRef = firebase.storage().ref();
+	var database = firebase.database();
   </script>
+  <script src="scripts/util.js"></script>
   <script src="scripts/login.js"></script>
   <script src="scripts/file.js"></script>
-  <script src="scripts/util.js"></script>
+  <script src="scripts/database.js"></script>
 	<style title="visibility">
 		.signedin { display: none; }
 	</style>
@@ -59,7 +61,7 @@
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
-	
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
