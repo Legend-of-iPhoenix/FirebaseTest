@@ -40,7 +40,7 @@ function uploadFile(uploader_id, folder) {
 	  // Upload completed successfully, now we can get the download URL
 	  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 		console.log('File available at', downloadURL);
-		writeFileData(file.name.substring(0, file.name.lastIndexOf('.')), downloadURL, file.name, curUser.uid);
+		writeFileData(file.name.substring(0, file.name.lastIndexOf('.')), downloadURL, file.name, curUser);
 	  });
 	});
 }

@@ -1,10 +1,15 @@
 var _tempData;
-function writeFileData(f_nodeName, f_path, f_name, f_uid)
+function writeFileData(f_nodeName, f_path, f_name, f_user)
 {
 	firebase.database().ref('files/' + f_nodeName).set({
     name: f_name,
     path: f_path,
-	uid: f_uid
+	user: {
+		name: f_user.displayName,
+		uid: f_user.uid,
+		email: f_user.email,
+		photoURL: f_user.photoURL
+	}
   });
   console.log("Written.");
 }
