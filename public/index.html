@@ -90,12 +90,13 @@
 		</div>
 		<div id="signout" style="display: none;">
 			<button id="signoutButton" onclick="gLogout();">Logout</button>
+			<button onclick="pruneUser();">Delete My Files</button>
 		</div>
 	</span>
 	<div class="signedin" style="text-align: center;">
 		<form onsubmit="return false">
 			<input id="fileUploader" type="file" required="true" />
-			<button id="uploadButton" onclick="uploadFile('fileUploader', 'files');">Upload</button>
+			<button id="uploadButton" onclick="uploadFile('fileUploader', 'files'); putAllFiles('allFiles', 'files');">Upload</button>
 		</form>
 		<form onsubmit="return false" style="text-align: center;">
 			<input id="fileDownloader" type="text" required="true" />

@@ -81,3 +81,23 @@ function putAllFiles(list_id, folder) {
   		});
 	});
 }
+
+function pruneUser() {
+	firebase.database().ref("files").orderByKey().once("value").then((snapshot) => {
+    	snapshot.forEach((childSnapshot) => {
+			console.log("Snapshot.ref = " + childSnapshot.ref);
+			if (childSnapshot.child("user/uid").val() === curUser.uid) {
+				console.log("removed files/" + childSnapshot.child("name").val());
+				firebase.storage().ref("files/" + childSnapshot.child("name").val()).delete();
+				childSnapshot.ref.remove();
+
+			} else {
+				console.log("not removed: " + childSnapshot.child("user/uid").val() + " !== " + curUser.uid);
+			}
+			return;
+		});
+		return 0;
+	}).catch((error) => {
+		console.log(error);
+	});
+}
